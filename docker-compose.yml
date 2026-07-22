@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: db_users
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: pwd123456789
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: myuser
+      PMA_PASSWORD: pwd123456789
